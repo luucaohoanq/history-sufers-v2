@@ -66,7 +66,7 @@ function startRace() {
     // Reset on error
     raceStarting = false;
     startBtn.disabled = false;
-    startBtn.innerHTML = '🏁 Bắt đầu chạy đua';
+    startBtn.innerHTML = '🏁 Bắt đầu';
   }
 }
 ```
@@ -222,7 +222,7 @@ function startRace() {
       console.warn('⚠️ Race start timeout, resetting...');
       raceStarting = false;
       startBtn.disabled = false;
-      startBtn.innerHTML = '🏁 Bắt đầu chạy đua';
+      startBtn.innerHTML = '🏁 Bắt đầu';
       showToast('Race start timeout. Please try again.', 'error');
     }
   }, 10000);

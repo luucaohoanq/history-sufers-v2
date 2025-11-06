@@ -1285,6 +1285,7 @@
           document.getElementById('displayRoomId').textContent = roomId;
           document.getElementById('roomInfo').style.display = 'block';
           document.querySelector('#createRoom form').style.display = 'none';
+          resetReadyToggle();
 
           // 🎓 Update UI based on mode
           updateRoomUIForClassroom();
@@ -1338,6 +1339,7 @@
           document.getElementById('displayRoomId').textContent = roomId;
           document.getElementById('roomInfo').style.display = 'block';
           document.querySelector('#createRoom form').style.display = 'none';
+          resetReadyToggle();
 
           // 🎓 Update UI if classroom mode
           updateRoomUIForClassroom();
@@ -1392,7 +1394,7 @@
           raceStarting = false;
           if (startBtn) {
             startBtn.disabled = false;
-            startBtn.innerHTML = '🏁 Bắt đầu chạy đua';
+            startBtn.innerHTML = '🏁 Bắt đầu';
           }
         }
       }
@@ -1447,6 +1449,7 @@
           document.getElementById('displayRoomId').textContent = roomId;
           document.getElementById('roomInfo').style.display = 'block';
           document.querySelector('#createRoom form').style.display = 'none';
+          resetReadyToggle();
 
           updatePlayersList();
           updatePlayerScores();
@@ -1480,6 +1483,17 @@
             console.log(isReady ? '✅ Resources marked as loaded' : '⏳ Resources marked as unloaded');
           }
         }, 500); // Small delay to ensure ready is processed first
+      }
+
+      function resetReadyToggle() {
+        const readyInput = document.getElementById('hostReady');
+        if (!readyInput) return;
+
+        readyInput.checked = false;
+
+        if (networkManager && typeof networkManager.setReady === 'function') {
+          networkManager.setReady(false);
+        }
       }
 
       // 🎓 Update UI for classroom mode
@@ -1574,7 +1588,7 @@
             startBtn.style.display = canStart ? 'inline-flex' : 'none';
             startBtn.disabled = !canStart;
             const icon = canStart ? '🏁' : '⏳';
-            const label = canStart ? 'Bắt đầu chạy đua' : 'Chờ tất cả sẵn sàng...';
+            const label = canStart ? 'Bắt đầu' : 'Chờ tất cả sẵn sàng...';
             startBtn.innerHTML = `<span aria-hidden="true">${icon}</span><span>${label}</span>`;
           }
         } else if (!isClassroomMode) {
@@ -1588,7 +1602,7 @@
             startBtn.style.display = canStart ? 'inline-flex' : 'none';
             startBtn.disabled = !canStart;
             const icon = canStart ? '🏁' : '⏳';
-            const label = canStart ? 'Bắt đầu chạy đua' : 'Chờ tất cả sẵn sàng...';
+            const label = canStart ? 'Bắt đầu' : 'Chờ tất cả sẵn sàng...';
             startBtn.innerHTML = `<span aria-hidden="true">${icon}</span><span>${label}</span>`;
           }
         }
