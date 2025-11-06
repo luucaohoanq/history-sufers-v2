@@ -180,46 +180,51 @@
             </form>
 
             <div id="roomInfo" class="room-info flow-room" style="display: none">
-              <div class="room-code-card">
-                <div class="room-code-header">
-                  <span class="room-code-label">Mã phòng</span>
-                  <span class="room-code-status" id="roomStatusChip">Đang chờ người chơi</span>
-                </div>
-                <div class="room-code-value">
-                  <span id="displayRoomId">ABC123</span>
-                  <button type="button" onclick="copyRoomId()" class="copy-btn room-code-copy" aria-label="Sao chép mã phòng">
-                    📋
-                  </button>
-                </div>
-                <p class="room-code-hint">Chia sẻ mã này với bạn bè để họ tham gia phòng của bạn.</p>
-              </div>
+              <div class="room-columns">
+                <div class="room-column room-column-main">
+                  <div class="room-code-card">
+                    <div class="room-code-header">
+                      <span class="room-code-label">Mã phòng</span>
+                      <span class="room-code-status" id="roomStatusChip">Đang chờ người chơi</span>
+                    </div>
+                    <div class="room-code-value">
+                      <span id="displayRoomId">ABC123</span>
+                      <button type="button" onclick="copyRoomId()" class="copy-btn room-code-copy" aria-label="Sao chép mã phòng">
+                        📋
+                      </button>
+                    </div>
+                    <p class="room-code-hint">Chia sẻ mã này với bạn bè để họ tham gia phòng của bạn.</p>
+                  </div>
 
-              <div class="room-players-card">
-                <div class="room-section-header">
-                  <span class="room-section-title">Người chơi</span>
-                  <span class="room-section-meta"><span id="playerCount">0</span> đang kết nối</span>
-                </div>
-                <div id="playersList" class="player-list flow-player-list"></div>
-              </div>
+                  <div class="ready-panel">
+                    <label class="flow-toggle ready-toggle">
+                      <input type="checkbox" id="hostReady" onchange="toggleReady()" />
+                      <span class="flow-toggle-indicator" aria-hidden="true"></span>
+                      <span class="flow-toggle-body">
+                        <span class="flow-toggle-title">SẴN SÀNG</span>
+                      </span>
+                    </label>
 
-              <div class="ready-panel">
-                <label class="flow-toggle ready-toggle">
-                  <input type="checkbox" id="hostReady" onchange="toggleReady()" />
-                  <span class="flow-toggle-indicator" aria-hidden="true"></span>
-                  <span class="flow-toggle-body">
-                    <span class="flow-toggle-title">Tôi đã sẵn sàng</span>
-                    <span class="flow-toggle-description">Đánh dấu khi bạn đã chuẩn bị xong.</span>
-                  </span>
-                </label>
+                    <div class="info-message ready-message" id="readyMessage">
+                      ⏳ Chờ tất cả người chơi sẵn sàng...
+                    </div>
 
-                <div class="info-message ready-message" id="readyMessage">
-                  ⏳ Chờ tất cả người chơi sẵn sàng...
+                    <button id="startRaceBtn" class="btn btn-primary ready-start-btn" onclick="startRace()" style="display: none">
+                      <span aria-hidden="true">🏁</span>
+                      <span>Bắt đầu</span>
+                    </button>
+                  </div>
                 </div>
 
-                <button id="startRaceBtn" class="btn btn-primary ready-start-btn" onclick="startRace()" style="display: none">
-                  <span aria-hidden="true">🏁</span>
-                  <span>Bắt đầu chạy đua</span>
-                </button>
+                <div class="room-column room-column-players">
+                  <div class="room-players-card">
+                    <div class="room-section-header">
+                      <span class="room-section-title">Người chơi</span>
+                      <span class="room-section-meta"><span id="playerCount">0</span> đang kết nối</span>
+                    </div>
+                    <div id="playersList" class="player-list flow-player-list"></div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
