@@ -1,6 +1,6 @@
 import { PRECACHE_URLS } from './asset-manifest.js';
 
-const CACHE_NAME = 'history-surfers-preload-v1';
+const CACHE_NAME = 'history-surfers-preload-v2';
 
 self.addEventListener('install', (event) => {
   const precacheRequests = PRECACHE_URLS.map((url) => new Request(`/${url}`, { cache: 'reload' }));

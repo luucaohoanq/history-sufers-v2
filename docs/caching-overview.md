@@ -14,7 +14,7 @@ Path: `scripts/asset-manifest.js`
   - `PRECACHE_URLS`: unique set of URLs used by the service worker during precache.
 - Keeping the manifest centralized guarantees the preloader, service worker, and any future tools work against the exact same asset list.
 
-> **Reminder:** bump `CACHE_NAME` (currently `history-surfers-preload-v1`) when you change this manifest. That forces the service worker to precache new assets and ignore stale ones.
+> **Reminder:** bump `CACHE_NAME` (currently `history-surfers-preload-v2`) when you change this manifest. That forces the service worker to precache new assets and ignore stale ones.
 
 ---
 

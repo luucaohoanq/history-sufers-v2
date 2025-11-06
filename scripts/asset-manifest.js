@@ -8,6 +8,7 @@ export const ASSET_MANIFEST = [
   { url: 'assets/objects/SkyScraper.glb', type: 'glb' },
   { url: 'assets/objects/StorageHouse.glb', type: 'glb' },
   { url: 'assets/objects/House.glb', type: 'glb' },
+  { url: 'assets/objects/Company.glb', type: 'glb' },
   { url: 'assets/objects/Bamboo.glb', type: 'glb' },
   { url: 'assets/objects/CropField.glb', type: 'glb' },
   { url: 'assets/objects/Factory.glb', type: 'glb' },
@@ -31,17 +32,14 @@ export const ASSET_MANIFEST = [
   { url: 'textures/ground/co.jpg', type: 'texture' },
   { url: 'textures/brick/leda.jpg', type: 'texture' },
   { url: 'textures/road/viahe.jpg', type: 'texture' },
-  { url: 'textures/ground/co-1.jpg', type: 'texture' },
-  { url: 'textures/brick/leda-1.jpg', type: 'texture' },
-  { url: 'textures/road/viahe-1.jpg', type: 'texture' },
 
   // Audio
-  { url: 'sounds/intro.wav', type: 'audio' },
-  { url: 'sounds/loop.wav', type: 'audio' },
-  { url: 'sounds/gameover.mp3', type: 'audio' },
+  { url: 'sounds/intro.ogg', type: 'audio' },
+  { url: 'sounds/loop.ogg', type: 'audio' },
+  { url: 'sounds/gameover.ogg', type: 'audio' },
   { url: 'sounds/error.mp3', type: 'audio' },
   { url: 'sounds/siu.mp3', type: 'audio' },
-  { url: 'sounds/subway-surfers-coin-collect.mp3', type: 'audio' }
+  { url: 'sounds/subway-surfers-coin-collect.ogg', type: 'audio' }
 ];
 
 export const PRECACHE_URLS = Array.from(

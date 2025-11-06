@@ -1,6 +1,6 @@
 import { ASSET_MANIFEST } from './asset-manifest.js';
 
-const CACHE_NAME = 'history-surfers-preload-v1';
+const CACHE_NAME = 'history-surfers-preload-v2';
 const STORAGE_KEY = 'hs-preload-status';
 const STORAGE_READY_VALUE = `${CACHE_NAME}::ready`;
 
