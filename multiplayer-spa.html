@@ -133,78 +133,92 @@
         </div>
 
         <!-- Create Room -->
-        <div id="createRoom" style="display: none">
-          <div class="card" style="max-width: 600px; margin: 0 auto">
-            <button class="btn" onclick="backToMultiplayerOptions()">
-              <svg width="20" height="20" fill="#121212" viewBox="0 0 24 24">
-                <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z" />
+        <div id="createRoom" class="flow-section" style="display: none">
+          <div class="flow-card">
+            <button class="flow-back" type="button" onclick="backToMultiplayerOptions()">
+              <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M15.41 16.59 10.83 12l4.58-4.59L14 6l-6 6 6 6z" />
               </svg>
-              Quay lại
+              <span>Quay lại</span>
             </button>
 
-            <h1 class="card-title">Tạo phòng mới</h1>
+            <div class="flow-header">
+              <h1 class="flow-title">Tạo phòng mới</h1>
+              <p class="flow-description">
+                Đặt tên của bạn và tạo phòng riêng để mời bạn bè hoặc cả lớp cùng tham gia cuộc đua.
+              </p>
+            </div>
 
-            <form onsubmit="createRoom(event)" class="form">
-              <div class="form-group">
-                <label for="createPlayerName">Tên của bạn</label>
+            <form onsubmit="createRoom(event)" class="flow-form">
+              <div class="flow-field">
+                <label for="createPlayerName" class="flow-label">Tên của bạn</label>
                 <input
                   type="text"
                   id="createPlayerName"
+                  class="form-input"
                   placeholder="Nhập tên..."
                   required
                   maxlength="20"
                 />
               </div>
 
-              <div class="form-group">
-                <label class="ready-checkbox" style="cursor: pointer;">
-                  <input type="checkbox" id="classroomModeToggle" />
-                  <span>🎓 Chế độ Lớp học (Classroom Mode)</span>
-                </label>
-                <div class="info-hint" style="margin-top: 8px; font-size: 14px; color: rgba(255, 255, 255, 0.6);">
-                  Người tạo sẽ làm giám sát viên và không tham gia chơi
-                </div>
-              </div>
+              <label class="flow-toggle">
+                <input type="checkbox" id="classroomModeToggle" />
+                <span class="flow-toggle-indicator" aria-hidden="true"></span>
+                <span class="flow-toggle-body">
+                  <span class="flow-toggle-title">🎓 Chế độ Lớp học</span>
+                  <span class="flow-toggle-description">
+                    Người tạo sẽ làm giám sát viên và không tham gia chơi.
+                  </span>
+                </span>
+              </label>
 
-              <button type="submit" class="btn btn-primary">
+              <button type="submit" class="btn btn-primary flow-submit">
                 <span>Tạo phòng</span>
-                <span>🎮</span>
+                <span aria-hidden="true">🎮</span>
               </button>
             </form>
 
-            <div id="roomInfo" class="room-info" style="display: none">
-              <div class="info-box">
-                <div class="info-label">Mã phòng</div>
-                <div class="info-value">
-                  <span id="displayRoomId">ABC123</span>
-                  <button onclick="copyRoomId()" class="copy-btn">📋</button>
+            <div id="roomInfo" class="room-info flow-room" style="display: none">
+              <div class="room-code-card">
+                <div class="room-code-header">
+                  <span class="room-code-label">Mã phòng</span>
+                  <span class="room-code-status" id="roomStatusChip">Đang chờ người chơi</span>
                 </div>
-                <div class="info-hint">Chia sẻ mã này với bạn bè</div>
+                <div class="room-code-value">
+                  <span id="displayRoomId">ABC123</span>
+                  <button type="button" onclick="copyRoomId()" class="copy-btn room-code-copy" aria-label="Sao chép mã phòng">
+                    📋
+                  </button>
+                </div>
+                <p class="room-code-hint">Chia sẻ mã này với bạn bè để họ tham gia phòng của bạn.</p>
               </div>
 
-              <div class="player-list">
-                <h3>Người chơi (<span id="playerCount">0</span>)</h3>
-                <div id="playersList"></div>
+              <div class="room-players-card">
+                <div class="room-section-header">
+                  <span class="room-section-title">Người chơi</span>
+                  <span class="room-section-meta"><span id="playerCount">0</span> đang kết nối</span>
+                </div>
+                <div id="playersList" class="player-list flow-player-list"></div>
               </div>
 
-              <div class="ready-section">
-                <label class="ready-checkbox">
+              <div class="ready-panel">
+                <label class="flow-toggle ready-toggle">
                   <input type="checkbox" id="hostReady" onchange="toggleReady()" />
-                  <span>Tôi đã sẵn sàng</span>
+                  <span class="flow-toggle-indicator" aria-hidden="true"></span>
+                  <span class="flow-toggle-body">
+                    <span class="flow-toggle-title">Tôi đã sẵn sàng</span>
+                    <span class="flow-toggle-description">Đánh dấu khi bạn đã chuẩn bị xong.</span>
+                  </span>
                 </label>
 
-                <div class="info-message" id="readyMessage">
+                <div class="info-message ready-message" id="readyMessage">
                   ⏳ Chờ tất cả người chơi sẵn sàng...
                 </div>
 
-                <!-- Start Race Button (only for host) -->
-                <button
-                  id="startRaceBtn"
-                  class="btn btn-primary"
-                  onclick="startRace()"
-                  style="display: none; margin-top: 20px"
-                >
-                  🏁 Bắt đầu chạy đua
+                <button id="startRaceBtn" class="btn btn-primary ready-start-btn" onclick="startRace()" style="display: none">
+                  <span aria-hidden="true">🏁</span>
+                  <span>Bắt đầu chạy đua</span>
                 </button>
               </div>
             </div>
@@ -212,44 +226,50 @@
         </div>
 
         <!-- Join Room -->
-        <div id="joinRoom" style="display: none">
-          <div class="card" style="max-width: 600px; margin: 0 auto">
-            <button class="btn" onclick="backToMultiplayerOptions()">
-              <svg width="20" height="20" fill="#121212" viewBox="0 0 24 24">
-                <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z" />
+        <div id="joinRoom" class="flow-section" style="display: none">
+          <div class="flow-card">
+            <button class="flow-back" type="button" onclick="backToMultiplayerOptions()">
+              <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M15.41 16.59 10.83 12l4.58-4.59L14 6l-6 6 6 6z" />
               </svg>
-              Quay lại
+              <span>Quay lại</span>
             </button>
 
-            <h1 class="card-title">Tham gia phòng</h1>
+            <div class="flow-header">
+              <h1 class="flow-title">Tham gia phòng</h1>
+              <p class="flow-description">
+                Nhập tên hiển thị và mã phòng mà bạn bè cung cấp để tham chiến ngay lập tức.
+              </p>
+            </div>
 
-            <form onsubmit="joinRoom(event)" class="form">
-              <div class="form-group">
-                <label for="joinPlayerName">Tên của bạn</label>
+            <form onsubmit="joinRoom(event)" class="flow-form">
+              <div class="flow-field">
+                <label for="joinPlayerName" class="flow-label">Tên của bạn</label>
                 <input
                   type="text"
                   id="joinPlayerName"
+                  class="form-input"
                   placeholder="Nhập tên..."
                   required
                   maxlength="20"
                 />
               </div>
 
-              <div class="form-group">
-                <label for="joinRoomId">Mã phòng</label>
+              <div class="flow-field">
+                <label for="joinRoomId" class="flow-label">Mã phòng</label>
                 <input
                   type="text"
                   id="joinRoomId"
+                  class="form-input input-uppercase"
                   placeholder="Nhập mã phòng..."
                   required
                   maxlength="10"
-                  style="text-transform: uppercase"
                 />
               </div>
 
-              <button type="submit" class="btn btn-primary">
+              <button type="submit" class="btn btn-primary flow-submit">
                 <span>Tham gia</span>
-                <span>🚀</span>
+                <span aria-hidden="true">🚀</span>
               </button>
             </form>
           </div>
@@ -1461,14 +1481,14 @@
       function updateRoomUIForClassroom() {
         if (!isClassroomMode) return;
 
-        const readySection = document.querySelector('.ready-section');
+        const readySection = document.querySelector('.ready-panel');
         if (!readySection) return;
 
         if (isAdmin) {
           // Admin UI: Hide ready checkbox, show admin controls
-          const readyCheckbox = readySection.querySelector('.ready-checkbox');
-          if (readyCheckbox) {
-            readyCheckbox.style.display = 'none';
+          const readyToggle = readySection.querySelector('.ready-toggle');
+          if (readyToggle) {
+            readyToggle.style.display = 'none';
           }
 
           const readyMessage = document.getElementById('readyMessage');
@@ -1502,15 +1522,42 @@
         playerCount.textContent = actualPlayers.length;
 
         playersList.innerHTML = actualPlayers
-          .map(
-            (player) => `
-        <div class="player-item ${player.ready ? 'ready' : ''}">
-          <span class="player-name">${player.name}${player.isSelf ? ' (You)' : ''}</span>
-          <span class="player-status">${player.ready ? '✅ Sẵn sàng' : '⏳ Chờ...'}</span>
-        </div>
-      `
-          )
+          .map((player) => {
+            const displayName = player.name || 'Người chơi';
+            const initial = displayName.trim().charAt(0).toUpperCase() || 'P';
+            const statusClass = player.ready ? 'status-ready' : 'status-not-ready';
+            const statusLabel = player.ready ? '✅ Sẵn sàng' : '⏳ Đang chờ';
+            const metaLabel = player.isSelf ? 'Bạn' : 'Thành viên';
+
+            return `
+              <div class="player-item ${player.ready ? 'is-ready' : 'is-waiting'}">
+                <div class="player-info">
+                  <div class="player-avatar">${initial}</div>
+                  <div class="player-meta">
+                    <span class="player-name">${displayName}${player.isSelf ? ' <span class="player-tag">Bạn</span>' : ''}</span>
+                    <span class="player-note">${metaLabel}</span>
+                  </div>
+                </div>
+                <span class="player-status ${statusClass}">${statusLabel}</span>
+              </div>
+            `;
+          })
           .join('');
+
+        const statusChip = document.getElementById('roomStatusChip');
+        if (statusChip) {
+          const readyCount = actualPlayers.filter((p) => p.ready).length;
+          if (actualPlayers.length === 0) {
+            statusChip.textContent = 'Đang chờ người chơi';
+            statusChip.classList.remove('is-ready');
+          } else if (readyCount === actualPlayers.length) {
+            statusChip.textContent = 'Tất cả đã sẵn sàng';
+            statusChip.classList.add('is-ready');
+          } else {
+            statusChip.textContent = `${readyCount}/${actualPlayers.length} sẵn sàng`;
+            statusChip.classList.remove('is-ready');
+          }
+        }
 
         // 🎓 Classroom mode: Only admin can start, all players must be ready
         if (isClassroomMode && isAdmin) {
@@ -1518,9 +1565,12 @@
           const startBtn = document.getElementById('startRaceBtn');
 
           if (startBtn) {
-            startBtn.style.display = allReady && actualPlayers.length >= 1 ? 'block' : 'none';
-            startBtn.disabled = !allReady;
-            startBtn.innerHTML = allReady ? '🏁 Bắt đầu chạy đua' : '⏳ Chờ tất cả sẵn sàng...';
+            const canStart = allReady && actualPlayers.length >= 1;
+            startBtn.style.display = canStart ? 'inline-flex' : 'none';
+            startBtn.disabled = !canStart;
+            const icon = canStart ? '🏁' : '⏳';
+            const label = canStart ? 'Bắt đầu chạy đua' : 'Chờ tất cả sẵn sàng...';
+            startBtn.innerHTML = `<span aria-hidden="true">${icon}</span><span>${label}</span>`;
           }
         } else if (!isClassroomMode) {
           // Normal mode: Show start button if host and all ready
@@ -1529,7 +1579,12 @@
           const startBtn = document.getElementById('startRaceBtn');
 
           if (startBtn) {
-            startBtn.style.display = isHost && allReady && actualPlayers.length >= 2 ? 'block' : 'none';
+            const canStart = isHost && allReady && actualPlayers.length >= 2;
+            startBtn.style.display = canStart ? 'inline-flex' : 'none';
+            startBtn.disabled = !canStart;
+            const icon = canStart ? '🏁' : '⏳';
+            const label = canStart ? 'Bắt đầu chạy đua' : 'Chờ tất cả sẵn sàng...';
+            startBtn.innerHTML = `<span aria-hidden="true">${icon}</span><span>${label}</span>`;
           }
         }
       }

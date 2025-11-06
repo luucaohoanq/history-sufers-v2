@@ -268,6 +268,304 @@ body {
   box-shadow: 0 0 0 4px rgba(118, 75, 162, 0.1);
 }
 
+.input-uppercase {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Flow panels */
+.flow-section {
+  width: 100%;
+}
+
+.flow-card {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 32px 40px;
+  border-radius: 32px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(22px);
+  box-shadow: 0 25px 65px rgba(17, 24, 39, 0.35);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.flow-back {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: none;
+  background: rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+  font-family: 'Baloo 2', cursive;
+  font-size: 1em;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  text-transform: uppercase;
+}
+
+.flow-back svg {
+  fill: currentColor;
+}
+
+.flow-back:hover {
+  background: rgba(255, 255, 255, 0.26);
+  transform: translateX(-4px);
+}
+
+.flow-header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.flow-title {
+  font-family: 'Baloo 2', cursive;
+  font-size: 2.6em;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.flow-description {
+  font-size: 1.05em;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+}
+
+.flow-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.flow-field {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.flow-label {
+  font-family: 'Baloo 2', cursive;
+  font-weight: 600;
+  font-size: 1.1em;
+  color: #ffffff;
+}
+
+.flow-submit {
+  align-self: flex-end;
+  padding-inline: 45px;
+}
+
+.flow-toggle {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  border-radius: 26px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+  transition: border 0.2s ease, background 0.2s ease;
+}
+
+.flow-toggle input {
+  position: absolute;
+  opacity: 0;
+}
+
+.flow-toggle-indicator {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s ease;
+}
+
+.flow-toggle-indicator::after {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: transparent;
+  transform: scale(0.5);
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+
+.flow-toggle-body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.flow-toggle-title {
+  font-family: 'Baloo 2', cursive;
+  font-size: 1.1em;
+  font-weight: 600;
+}
+
+.flow-toggle-description {
+  font-size: 0.95em;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.flow-toggle:hover {
+  border-color: rgba(255, 255, 255, 0.32);
+}
+
+.flow-toggle input:checked + .flow-toggle-indicator {
+  border-color: transparent;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.flow-toggle input:checked + .flow-toggle-indicator::after {
+  background: #ffffff;
+  transform: scale(1);
+}
+
+.flow-toggle input:checked ~ .flow-toggle-body .flow-toggle-title {
+  color: #ffffff;
+}
+
+.flow-room {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.room-code-card,
+.room-players-card,
+.ready-panel {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 28px;
+  padding: 24px;
+  backdrop-filter: blur(18px);
+}
+
+.room-code-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.room-code-label {
+  font-family: 'Baloo 2', cursive;
+  font-size: 1.1em;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.room-code-status {
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(103, 126, 234, 0.25);
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.85em;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.room-code-status.is-ready {
+  background: rgba(80, 184, 70, 0.3);
+}
+
+.room-code-value {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Baloo 2', cursive;
+  font-size: 2em;
+  color: #ffffff;
+  letter-spacing: 4px;
+}
+
+.room-code-copy {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  border: none;
+  background: rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1em;
+}
+
+.room-code-copy:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.room-code-hint {
+  margin-top: 12px;
+  font-size: 0.95em;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.room-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 16px;
+}
+
+.room-section-title {
+  font-family: 'Baloo 2', cursive;
+  font-size: 1.3em;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.room-section-meta {
+  font-size: 0.95em;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.flow-player-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+.ready-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.ready-message {
+  font-size: 0.95em;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.5;
+}
+
+.ready-start-btn {
+  align-self: flex-end;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding-inline: 36px;
+}
 /* Buttons */
 .btn {
   font-family: 'Baloo 2', cursive;
@@ -332,69 +630,21 @@ body {
 }
 
 /* Room Code Display */
-.room-code-display {
-  /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
-  /* padding: 30px; */
-  border-radius: 25px;
-  text-align: center;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  box-shadow: 0 10px 30px rgba(118, 75, 162, 1);
-}
-
-.room-code-label {
-  font-family: 'Baloo 2', cursive;
-  font-size: 1.5em;
-  color: rgba(255, 255, 255, 0.9);
-}
-
-.room-code-value {
-  font-family: 'Baloo 2', cursive;
-  font-size: 3.5em;
-  font-weight: 800;
-  color: white;
-  letter-spacing: 10px;
-  text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-}
-
-.room-code-hint {
-  color: rgba(255, 255, 255, 0.8);
-}
-
-/* Player List */
-.player-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 25px;
-}
-
-.player-count {
-  color: white;
-  padding: 10px 20px;
-  border-radius: 50px;
-  font-weight: 700;
-  font-size: 1.75em;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
 .player-list {
   display: flex;
-  gap: 15px;
-  max-height: 400px;
+  flex-direction: column;
+  gap: 14px;
+  max-height: 320px;
   overflow-y: auto;
-  padding: 10px;
+  padding: 4px;
 }
 
 .player-list::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 .player-list::-webkit-scrollbar-track {
-  background: #f0f0f0;
+  background: rgba(255, 255, 255, 0.12);
   border-radius: 10px;
 }
 
@@ -404,61 +654,102 @@ body {
 }
 
 .player-item {
-  background: #f1f1f1;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 20px;
-  padding: 10px;
+  padding: 14px 18px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease, border 0.3s ease, background 0.3s ease;
+  color: #ffffff;
 }
 
 .player-item:hover {
-  transform: translateY(-5px);
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.player-item.is-ready {
+  background: rgba(80, 184, 70, 0.18);
+  border-color: rgba(80, 184, 70, 0.4);
+}
+
+.player-item.is-waiting {
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .player-info {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 16px;
 }
 
 .player-avatar {
-  width: 50px;
-  height: 50px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
-  /* border: 3px solid #764ba2; */
-  /* box-shadow: 0 4px 15px rgba(118, 75, 162, 0.3); */
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Baloo 2', cursive;
+  font-size: 1.4em;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+}
+
+.player-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .player-name {
   font-family: 'Baloo 2', cursive;
   font-size: 1.3em;
   font-weight: 700;
-  color: #333;
+  color: #ffffff;
 }
 
+.player-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 0.65em;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 3px 10px;
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  margin-left: 10px;
+}
+
+.player-note,
 .player-you {
   font-size: 0.85em;
-  color: #666;
+  color: rgba(255, 255, 255, 0.65);
   font-weight: 400;
 }
 
 .player-status {
   padding: 8px 20px;
-  border-radius: 50px;
-  font-weight: 700;
+  border-radius: 999px;
+  font-weight: 600;
   font-size: 0.95em;
+  letter-spacing: 0.3px;
 }
 
 .status-ready {
   background: linear-gradient(135deg, #50b846 0%, #3d8f35 100%);
-  color: white;
+  color: #ffffff;
 }
 
 .status-not-ready {
-  background: rgba(0, 0, 0, 0.1);
-  color: #666;
+  background: rgba(255, 255, 255, 0.16);
+  color: rgba(255, 255, 255, 0.8);
 }
 
 /* Room List */
@@ -623,6 +914,33 @@ body {
 @media (max-width: 768px) {
   .card-title {
     font-size: 2em;
+  }
+
+  .flow-card {
+    padding: 26px 22px;
+    gap: 20px;
+  }
+
+  .flow-title {
+    font-size: 2.2em;
+  }
+
+  .flow-description {
+    font-size: 0.98em;
+  }
+
+  .flow-submit {
+    align-self: stretch;
+    justify-content: center;
+  }
+
+  .flow-back {
+    padding: 8px 14px;
+  }
+
+  .room-code-value {
+    font-size: 1.6em;
+    letter-spacing: 2px;
   }
 
   .mode-grid {
