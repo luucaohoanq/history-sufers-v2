@@ -40,6 +40,16 @@
     <link href="./styles/lobby.style.css" rel="stylesheet" />
     <link href="./styles/sound_toggle.css" rel="stylesheet" />
     <link href="./styles/stat_panel.css" rel="stylesheet" />
+
+    <script type="module">
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker
+            .register('/scripts/service-worker.js', { type: 'module' })
+            .catch((error) => console.error('ServiceWorker registration failed:', error));
+        });
+      }
+    </script>
   </head>
 
   <body>

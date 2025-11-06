@@ -171,6 +171,15 @@
 
     <div id="world"></div>
 
+    <script type="module">
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker
+            .register('/scripts/service-worker.js', { type: 'module' })
+            .catch((error) => console.error('ServiceWorker registration failed:', error));
+        });
+      }
+    </script>
     <script>
       // Toast notification system
       function showToast(notification) {
