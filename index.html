@@ -89,6 +89,14 @@
     <script type="module">
       import { initAssetPreloader } from './scripts/preload-banner.js';
       initAssetPreloader();
+
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker
+            .register('/scripts/service-worker.js', { type: 'module' })
+            .catch((error) => console.error('ServiceWorker registration failed:', error));
+        });
+      }
     </script>
     <script>
       // Add subtle floating animation to pellets

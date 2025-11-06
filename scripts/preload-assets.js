@@ -1,48 +1,8 @@
-const CACHE_NAME = 'history-surfers-preload-v1';
+import { ASSET_MANIFEST } from './asset-manifest.js';
+
+const CACHE_NAME = 'history-surfers-preload-v2';
 const STORAGE_KEY = 'hs-preload-status';
 const STORAGE_READY_VALUE = `${CACHE_NAME}::ready`;
-
-const GLB_ASSETS = [
-  new URL('../assets/objects/SimpleTree.glb', import.meta.url).href,
-  new URL('../assets/objects/VillageHut.glb', import.meta.url).href,
-  new URL('../assets/objects/CapitalistExpress.glb', import.meta.url).href,
-  new URL('../assets/objects/WaterBuffalo.glb', import.meta.url).href,
-  new URL('../assets/objects/SkyScraper.glb', import.meta.url).href,
-  new URL('../assets/objects/StorageHouse.glb', import.meta.url).href,
-  new URL('../assets/objects/House.glb', import.meta.url).href,
-  new URL('../assets/objects/Bamboo.glb', import.meta.url).href,
-  new URL('../assets/objects/CropField.glb', import.meta.url).href,
-  new URL('../assets/objects/Factory.glb', import.meta.url).href,
-  new URL('../assets/objects/LargeBuilding_2.glb', import.meta.url).href,
-  new URL('../assets/objects/Train.glb', import.meta.url).href,
-  new URL('../assets/objects/Gear.glb', import.meta.url).href,
-  new URL('../assets/objects/BallotBox.glb', import.meta.url).href,
-  new URL('../assets/objects/RadioTower.glb', import.meta.url).href,
-  new URL('../assets/objects/TrafficBarrier.glb', import.meta.url).href,
-  new URL('../assets/models/business_man.glb', import.meta.url).href,
-  new URL('../assets/models/worker.glb', import.meta.url).href,
-  new URL('../assets/models/farmer.glb', import.meta.url).href
-];
-
-const TEXTURE_ASSETS = [
-  new URL('../assets/xp.jpg', import.meta.url).href,
-  new URL('../assets/bamboo.jpg', import.meta.url).href,
-  new URL('../textures/road/Road007_1K-JPG_Color.jpg', import.meta.url).href,
-  new URL('../textures/ground/Ground067_1K-JPG_Color.jpg', import.meta.url).href,
-  new URL('../textures/brick/Bricks075A_1K-JPG_Color.jpg', import.meta.url).href,
-  new URL('../textures/ground/co.jpg', import.meta.url).href,
-  new URL('../textures/brick/leda.jpg', import.meta.url).href,
-  new URL('../textures/road/viahe.jpg', import.meta.url).href
-];
-
-const AUDIO_ASSETS = [
-  new URL('../sounds/intro.ogg', import.meta.url).href,
-  new URL('../sounds/loop.ogg', import.meta.url).href,
-  new URL('../sounds/gameover.ogg', import.meta.url).href,
-  new URL('../sounds/error.mp3', import.meta.url).href,
-  new URL('../sounds/siu.mp3', import.meta.url).href,
-  new URL('../sounds/subway-surfers-coin-collect.ogg', import.meta.url).href
-];
 
 const manifest = buildManifest();
 
@@ -60,20 +20,10 @@ let gltfModulePromise = null;
 let warmedFromStorage = false;
 
 function buildManifest() {
-  const items = [];
-  const appended = new Set();
-  function push(url, type) {
-    if (!url || appended.has(url)) {
-      return;
-    }
-    appended.add(url);
-    items.push({ url, type });
-  }
-
-  GLB_ASSETS.forEach((url) => push(url, 'glb'));
-  TEXTURE_ASSETS.forEach((url) => push(url, 'texture'));
-  AUDIO_ASSETS.forEach((url) => push(url, 'audio'));
-  return items;
+  return ASSET_MANIFEST.map((entry) => ({
+    url: new URL(`../${entry.url}`, import.meta.url).href,
+    type: entry.type
+  }));
 }
 
 function snapshotState(extra = {}) {
