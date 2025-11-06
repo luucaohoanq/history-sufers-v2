@@ -4,7 +4,6 @@ const STORAGE_READY_VALUE = `${CACHE_NAME}::ready`;
 
 const GLB_ASSETS = [
   new URL('../assets/objects/SimpleTree.glb', import.meta.url).href,
-  new URL('../assets/objects/Tree.glb', import.meta.url).href,
   new URL('../assets/objects/VillageHut.glb', import.meta.url).href,
   new URL('../assets/objects/CapitalistExpress.glb', import.meta.url).href,
   new URL('../assets/objects/WaterBuffalo.glb', import.meta.url).href,
@@ -27,26 +26,22 @@ const GLB_ASSETS = [
 
 const TEXTURE_ASSETS = [
   new URL('../assets/xp.jpg', import.meta.url).href,
-  new URL('../assets/road.jpg', import.meta.url).href,
   new URL('../assets/bamboo.jpg', import.meta.url).href,
   new URL('../textures/road/Road007_1K-JPG_Color.jpg', import.meta.url).href,
   new URL('../textures/ground/Ground067_1K-JPG_Color.jpg', import.meta.url).href,
   new URL('../textures/brick/Bricks075A_1K-JPG_Color.jpg', import.meta.url).href,
   new URL('../textures/ground/co.jpg', import.meta.url).href,
   new URL('../textures/brick/leda.jpg', import.meta.url).href,
-  new URL('../textures/road/viahe.jpg', import.meta.url).href,
-  new URL('../textures/ground/co-1.jpg', import.meta.url).href,
-  new URL('../textures/brick/leda-1.jpg', import.meta.url).href,
-  new URL('../textures/road/viahe-1.jpg', import.meta.url).href
+  new URL('../textures/road/viahe.jpg', import.meta.url).href
 ];
 
 const AUDIO_ASSETS = [
-  new URL('../sounds/intro.wav', import.meta.url).href,
-  new URL('../sounds/loop.wav', import.meta.url).href,
-  new URL('../sounds/gameover.mp3', import.meta.url).href,
+  new URL('../sounds/intro.ogg', import.meta.url).href,
+  new URL('../sounds/loop.ogg', import.meta.url).href,
+  new URL('../sounds/gameover.ogg', import.meta.url).href,
   new URL('../sounds/error.mp3', import.meta.url).href,
   new URL('../sounds/siu.mp3', import.meta.url).href,
-  new URL('../sounds/subway-surfers-coin-collect.mp3', import.meta.url).href
+  new URL('../sounds/subway-surfers-coin-collect.ogg', import.meta.url).href
 ];
 
 const manifest = buildManifest();
@@ -180,7 +175,7 @@ function persistStoredReady() {
   }
   try {
     window.localStorage.setItem(STORAGE_KEY, STORAGE_READY_VALUE);
-  } catch (error) {}
+  } catch (error) { }
 }
 
 function clearStoredReady() {
@@ -189,7 +184,7 @@ function clearStoredReady() {
   }
   try {
     window.localStorage.removeItem(STORAGE_KEY);
-  } catch (error) {}
+  } catch (error) { }
 }
 
 function initializeFromStorage() {
@@ -211,7 +206,7 @@ export function getAssetPreloadState() {
 
 export function subscribeToAssetPreload(listener) {
   if (typeof listener !== 'function') {
-    return () => {};
+    return () => { };
   }
   subscribers.add(listener);
   listener(snapshotState());

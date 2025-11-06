@@ -1,10 +1,8 @@
 import * as THREE from 'three';
-import { createCylinder, createTextLabel } from '../scripts/utils.js';
-import { Colors } from '../scripts/colors.js';
+import { createTextLabel } from '../scripts/utils.js';
 import { createGLBModel } from '../scripts/create-glb-model.js';
 
 const SIMPLE_TREE_URL = new URL('../assets/objects/SimpleTree.glb', import.meta.url).href;
-const TREE_URL = new URL('../assets/objects/Tree.glb', import.meta.url).href;
 const VILLAGE_HUT_URL = new URL('../assets/objects/VillageHut.glb', import.meta.url).href;
 const CAPITALIST_EXPRESS_URL = new URL('../assets/objects/CapitalistExpress.glb', import.meta.url).href;
 const WATER_BUFFALO_URL = new URL('../assets/objects/WaterBuffalo.glb', import.meta.url).href;
@@ -28,10 +26,10 @@ const LOW_BARRIER_URL = new URL('../assets/objects/TrafficBarrier.glb', import.m
 
 async function loadTreeInstance() {
   const tree = await createGLBModel({
-    url: TREE_URL,
+    url: SIMPLE_TREE_URL,
     castShadow: true,
     receiveShadow: true,
-    desiredHeight: 690,
+    desiredHeight: 450,
     snapToGround: true,
     onClone: (root) => {
       root.traverse((child) => {
@@ -1347,7 +1345,7 @@ async function loadBambooInstance() {
     url: BAMBOO_URL,
     castShadow: true,
     receiveShadow: true,
-    desiredHeight: 500,
+    desiredHeight: 750,
     snapToGround: true,
     onClone: (root) => {
       root.traverse((child) => {
