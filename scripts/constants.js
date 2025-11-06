@@ -25,12 +25,6 @@ export const SIDEWALK_KIT = {
   DUONG_NHUA: 'textures/road/viahe.jpg'
 };
 
-export const CURB_KIT = {
-  DUONG_DAT: 'textures/ground/co-1.jpg',
-  DUONG_GACH: 'textures/brick/leda-1.jpg',
-  DUONG_NHUA: 'textures/road/viahe-1.jpg'
-};
-
 
 export const CAMERA_SETTINGS = {
   NORMAL: { x: 0, y: 700, z: -2000, lookAt: { x: 0, y: 600, z: -5000 } },
@@ -121,43 +115,6 @@ export let SIDEWALK_LEFT_GACH = createBoxTexture(
   SIDEWALK_KIT.DUONG_GACH
 );
 
-export let CURB_LEFT_CHAY = createBoxTexture(
-  80, // Chiều rộng viền
-  220, // Chiều cao (từ đường lên vỉa hè)
-  120000,
-  Colors.grey, // Màu xám cho viền
-  -1500, // Vị trí giữa đường và vỉa hè trái
-  -310, // Giữa đường (-400) và vỉa hè (-380)
-  -60000,
-  true, // Không cần texture
-  CURB_KIT.DUONG_NHUA
-);
-
-// Viền bên trong vỉa hè phải
-export let CURB_LEFT_DAT = createBoxTexture(
-  80,
-  220,
-  120000,
-  Colors.grey,
-  1500, // Vị trí giữa đường và vỉa hè phải
-  -310,
-  -60000,
-  true,
-  CURB_KIT.DUONG_DAT
-);
-
-export let CURB_LEFT_GACH = createBoxTexture(
-  80,
-  220,
-  120000,
-  Colors.grey,
-  1500, // Vị trí giữa đường và vỉa hè phải
-  -310,
-  -60000,
-  true,
-  CURB_KIT.DUONG_GACH
-);
-
 // ===== SIDEWALK RIGHT (2, 3, 4) =====
 export let SIDEWALK_RIGHT_CHAY = createBoxTexture(
   3000, // width cho 3 lanes vỉa hè phải
@@ -195,73 +152,11 @@ export let SIDEWALK_RIGHT_GACH = createBoxTexture(
   SIDEWALK_KIT.DUONG_GACH
 );
 
-export let CURB_RIGHT_CHAY = createBoxTexture(
-  80, // Chiều rộng viền
-  220, // Chiều cao (từ đường lên vỉa hè)
-  120000,
-  Colors.grey, // Màu xám cho viền
-  -1500, // Vị trí giữa đường và vỉa hè trái
-  -310, // Giữa đường (-400) và vỉa hè (-380)
-  -60000,
-  true, // Không cần texture
-  CURB_KIT.DUONG_NHUA
-);
-
-// Viền bên trong vỉa hè phải
-export let CURB_RIGHT_DAT = createBoxTexture(
-  80,
-  220,
-  120000,
-  Colors.grey,
-  1500, // Vị trí giữa đường và vỉa hè phải
-  -310,
-  -60000,
-  true,
-  CURB_KIT.DUONG_DAT
-);
-
-export let CURB_RIGHT_GACH = createBoxTexture(
-  80,
-  220,
-  120000,
-  Colors.grey,
-  1500, // Vị trí giữa đường và vỉa hè phải
-  -310,
-  -60000,
-  true,
-  CURB_KIT.DUONG_GACH
-);
-
-export let CURB_LEFT_INNER = createBoxTexture(
-  80, // Chiều rộng viền
-  220, // Chiều cao (từ đường lên vỉa hè)
-  120000,
-  Colors.grey, // Màu xám cho viền
-  -1500, // Vị trí giữa đường và vỉa hè trái
-  -310, // Giữa đường (-400) và vỉa hè (-200)
-  -60000,
-  false, // Không cần texture
-  null
-);
-
-// Viền bên trong vỉa hè phải
-export let CURB_RIGHT_INNER = createBoxTexture(
-  80,
-  220,
-  120000,
-  Colors.grey,
-  1500, // Vị trí giữa đường và vỉa hè phải
-  -310,
-  -60000,
-  false,
-  null
-);
-
 export const SIDE_OBJECTS_BY_STAGE = {
   1: [
-    { type: 'Tree', weight: 3 },
-    { type: 'VillageHut', weight: 1 },
-    { type: 'BambooTree', weight: 2 },
+    { type: 'Tree', weight: 2 },
+    { type: 'VillageHut', weight: 1.5 },
+    { type: 'BambooTree', weight: 1.5 },
     { type: 'WaterBuffalo', weight: 0.5 },
     { type: 'RiceStorage', weight: 0.8 },
     { type: 'CropField', weight: 0.7 }
@@ -270,15 +165,15 @@ export const SIDE_OBJECTS_BY_STAGE = {
     { type: 'Tree', weight: 1 },
     { type: 'OldFactory', weight: 2 },
     { type: 'House', weight: 2 },
-    { type: 'CropField', weight: 0.5 },
-    { type: 'VillageHut', weight: 0.5 }
+    { type: 'CropField', weight: 0.2 },
+    { type: 'VillageHut', weight: 0.2 }
   ],
   3: [
     { type: 'Tree', weight: 0.5 },
     { type: 'FiveGTower', weight: 2 },
     { type: 'MetroStation', weight: 1.5 },
-    { type: 'Skyscraper', weight: 2.5 },
-    { type: 'Company', weight: 0.5 }
+    { type: 'Skyscraper', weight: 1 },
+    { type: 'Company', weight: 1.5 }
   ]
 };
 

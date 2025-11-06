@@ -18,7 +18,6 @@ var AudioManager = (function () {
 
   // configuration
   var CROSSFADE_SEC = 1.0;
-  var FADE_STEP_MS = 50; // not used (we use AudioParam scheduling)
   var DEFAULT_VOLUME = 0.5;
 
   // WebAudio context + nodes
@@ -139,13 +138,13 @@ var AudioManager = (function () {
               try {
                 f.source.stop();
                 console.log('🛑 Stopped audio source');
-              } catch (e) {}
+              } catch (e) { }
               try {
                 f.source.disconnect();
-              } catch (e) {}
+              } catch (e) { }
               try {
                 f.gain.disconnect();
-              } catch (e) {}
+              } catch (e) { }
             },
             Math.max(0, (stopAt - audioCtx.currentTime) * 1000 + 50)
           );
@@ -162,13 +161,13 @@ var AudioManager = (function () {
     if (!obj) return;
     try {
       obj.source.stop();
-    } catch (e) {}
+    } catch (e) { }
     try {
       obj.source.disconnect();
-    } catch (e) {}
+    } catch (e) { }
     try {
       obj.gain.disconnect();
-    } catch (e) {}
+    } catch (e) { }
     active[slotName] = null;
   }
 
@@ -192,7 +191,7 @@ var AudioManager = (function () {
         ev,
         function resumeOnce() {
           if (audioCtx && audioCtx.state === 'suspended') {
-            audioCtx.resume().catch(function (e) {});
+            audioCtx.resume().catch(function (e) { });
           }
           window.removeEventListener(ev, resumeOnce);
         },
@@ -206,9 +205,9 @@ var AudioManager = (function () {
     // paths optional override: {intro, loop, gameover}
     init();
     paths = paths || {};
-    var introPath = paths.intro || 'sounds/intro.wav';
-    var loopPath = paths.loop || 'sounds/loop.wav';
-    var gameoverPath = paths.gameover || 'sounds/gameover.mp3';
+    var introPath = paths.intro || 'sounds/intro.ogg';
+    var loopPath = paths.loop || 'sounds/loop.ogg';
+    var gameoverPath = paths.gameover || 'sounds/gameover.ogg';
 
     return Promise.all([
       fetchAndDecode(introPath).then(function (b) {
@@ -335,7 +334,7 @@ var AudioManager = (function () {
         },
         dur + CROSSFADE_SEC * 1000 + 100
       );
-    } catch (e) {}
+    } catch (e) { }
   }
 
   // PUBLIC: pause immediately (no fade)
@@ -365,17 +364,17 @@ var AudioManager = (function () {
             if (active[k]) {
               try {
                 active[k].source.stop();
-              } catch (e) {}
+              } catch (e) { }
               try {
                 active[k].source.disconnect();
-              } catch (e) {}
+              } catch (e) { }
               try {
                 active[k].gain.disconnect();
-              } catch (e) {}
+              } catch (e) { }
               active[k] = null;
             }
           });
-        } catch (e) {}
+        } catch (e) { }
       },
       (CROSSFADE_SEC + 0.05) * 1000
     );
@@ -435,13 +434,13 @@ var AudioManager = (function () {
           function () {
             try {
               s.stop();
-            } catch (e) {}
+            } catch (e) { }
             try {
               s.disconnect();
-            } catch (e) {}
+            } catch (e) { }
             try {
               g.disconnect();
-            } catch (e) {}
+            } catch (e) { }
           },
           (buf.duration + 0.1) * 1000
         );
@@ -451,8 +450,8 @@ var AudioManager = (function () {
         try {
           var a = new Audio(url);
           a.volume = volume;
-          a.play().catch(function () {});
-        } catch (er) {}
+          a.play().catch(function () { });
+        } catch (er) { }
       });
   }
 

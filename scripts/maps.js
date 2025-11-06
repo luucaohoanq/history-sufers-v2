@@ -29,14 +29,6 @@ import { Character } from './characters.js';
 import {
   CAMERA_SETTING_LIVE,
   CAMERA_SETTINGS,
-  CURB_LEFT_CHAY,
-  CURB_LEFT_DAT,
-  CURB_LEFT_GACH,
-  CURB_LEFT_INNER,
-  CURB_RIGHT_CHAY,
-  CURB_RIGHT_DAT,
-  CURB_RIGHT_GACH,
-  CURB_RIGHT_INNER,
   DUONG_CHAY,
   DUONG_DAT,
   DUONG_GACH,
@@ -112,33 +104,23 @@ export function WorldMap(networkStrategy = null) {
     1: {
       main: DUONG_DAT,
       leftSidewalk: SIDEWALK_LEFT_DAT,
-      rightSidewalk: SIDEWALK_RIGHT_DAT,
-      leftCurbs: CURB_LEFT_DAT,
-      rightCurbs: CURB_RIGHT_DAT,
-      curbs: [CURB_LEFT_DAT, CURB_RIGHT_DAT]
+      rightSidewalk: SIDEWALK_RIGHT_DAT
     },
     2: {
       main: DUONG_GACH,
       leftSidewalk: SIDEWALK_LEFT_GACH,
-      rightSidewalk: SIDEWALK_RIGHT_GACH,
-      leftCurbs: CURB_LEFT_GACH,
-      rightCurbs: CURB_RIGHT_GACH,
-      curbs: [CURB_LEFT_GACH, CURB_RIGHT_GACH]
+      rightSidewalk: SIDEWALK_RIGHT_GACH
     },
     3: {
       main: DUONG_CHAY,
       leftSidewalk: SIDEWALK_LEFT_CHAY,
-      rightSidewalk: SIDEWALK_RIGHT_CHAY,
-      leftCurbs: CURB_LEFT_CHAY,
-      rightCurbs: CURB_RIGHT_CHAY,
-      curbs: [CURB_LEFT_CHAY, CURB_RIGHT_CHAY]
+      rightSidewalk: SIDEWALK_RIGHT_CHAY
     }
   };
 
   // Đường hiện tại đang active trong scene
   let activeGround = null;
   let activeSidewalks = { left: null, right: null };
-  let activeCurbs = { left: null, right: null };
   let groundStage = 1;
 
   // Initialize the world.
@@ -209,22 +191,11 @@ export function WorldMap(networkStrategy = null) {
         DUONG_DAT, DUONG_GACH, DUONG_CHAY,
         SIDEWALK_LEFT_DAT, SIDEWALK_LEFT_GACH, SIDEWALK_LEFT_CHAY,
         SIDEWALK_RIGHT_DAT, SIDEWALK_RIGHT_GACH, SIDEWALK_RIGHT_CHAY,
-        CURB_LEFT_DAT, CURB_LEFT_GACH, CURB_LEFT_CHAY,
-        CURB_RIGHT_DAT, CURB_RIGHT_GACH, CURB_RIGHT_CHAY,
       ].forEach((g) => {
         if (g?.material?.map) {
           g.material.map.wrapS = THREE.RepeatWrapping;
           g.material.map.wrapT = THREE.RepeatWrapping;
-          // Curb chỉ là dải nhỏ nên repeat X chỉ để 1, repeat Y dài để không bị kéo dãn
-          if (
-            g === CURB_LEFT_DAT || g === CURB_LEFT_GACH || g === CURB_LEFT_CHAY ||
-            g === CURB_RIGHT_DAT || g === CURB_RIGHT_GACH || g === CURB_RIGHT_CHAY
-          ) {
-            g.material.map.repeat.set(0.5, 200);
-          } else {
-            // Đường chính và vỉa hè rộng bằng số lane
-            g.material.map.repeat.set(GAME_CONSTANTS.SO_LUONG_LANE, 200);
-          }
+          g.material.map.repeat.set(GAME_CONSTANTS.SO_LUONG_LANE, 200);
         }
       });
 
@@ -349,7 +320,7 @@ export function WorldMap(networkStrategy = null) {
             }
             if (key == KEYCODE.DOWN && !paused) {
               character.onDownKeyPressed();
-              AudioManager.playSoundEffect('sounds/siu.mp3');
+              // AudioManager.playSoundEffect('sounds/siu.mp3');
 
               if (currentCameraIndex === 2) {
                 const live = CAMERA_SETTING_LIVE;
@@ -573,7 +544,7 @@ export function WorldMap(networkStrategy = null) {
     showBuffNotification(buffs);
 
     // Play coin/buff SFX (respect mute setting)
-    AudioManager.playSoundEffect('sounds/subway-surfers-coin-collect.mp3');
+    AudioManager.playSoundEffect('sounds/subway-surfers-coin-collect.ogg');
 
     // Check for game over conditions
     checkGameOverConditions();
@@ -710,13 +681,6 @@ export function WorldMap(networkStrategy = null) {
       if (activeSidewalks.right?.material?.map) {
         activeSidewalks.right.material.map.offset.y += GAME_CONSTANTS.TOC_DO_LUOT_DAT;
       }
-      // Animate curb textures
-      // if (activeCurbs.left?.material?.map) {
-      //   activeCurbs.left.material.map.offset.y += GAME_CONSTANTS.TOC_DO_LUOT_DAT;
-      // }
-      // if (activeCurbs.right?.material?.map) {
-      //   activeCurbs.right.material.map.offset.y += GAME_CONSTANTS.TOC_DO_LUOT_DAT;
-      // }
 
       for (let obj of objects) {
         if (obj.updateHitbox) obj.updateHitbox();
@@ -867,22 +831,6 @@ export function WorldMap(networkStrategy = null) {
       }
     }
 
-    // // Remove curbs cũ
-    // if (activeCurbs.left && scene) {
-    //   try {
-    //     scene.remove(activeCurbs.left);
-    //   } catch (e) {
-    //     console.warn('Remove left curb failed', e);
-    //   }
-    // }
-    // if (activeCurbs.right && scene) {
-    //   try {
-    //     scene.remove(activeCurbs.right);
-    //   } catch (e) {
-    //     console.warn('Remove right curb failed', e);
-    //   }
-    // }
-
     // Set ground mới
     const groundSet = GROUNDS[newStage];
     if (groundSet) {
@@ -918,27 +866,6 @@ export function WorldMap(networkStrategy = null) {
         }
         scene.add(activeSidewalks.right);
       }
-
-      // // Add curbs
-      // activeCurbs.left = groundSet.leftCurbs;
-      // if (activeCurbs.left) {
-      //   if (activeCurbs.left.material?.map) {
-      //     activeCurbs.left.material.map.wrapS = THREE.RepeatWrapping;
-      //     activeCurbs.left.material.map.wrapT = THREE.RepeatWrapping;
-      //     activeCurbs.left.material.map.repeat.set(0.5, 200);
-      //   }
-      //   scene.add(activeCurbs.left);
-      // }
-
-      // activeCurbs.right = groundSet.rightCurbs;
-      // if (activeCurbs.right) {
-      //   if (activeCurbs.right.material?.map) {
-      //     activeCurbs.right.material.map.wrapS = THREE.RepeatWrapping;
-      //     activeCurbs.right.material.map.wrapT = THREE.RepeatWrapping;
-      //     activeCurbs.right.material.map.repeat.set(0.5, 200);
-      //   }
-      //   scene.add(activeCurbs.right);
-      // }
     }
     groundStage = newStage;
   }
@@ -1525,16 +1452,6 @@ export function WorldMap(networkStrategy = null) {
     }
 
     activeSidewalks = { left: null, right: null };
-
-    // // Remove curbs
-    // if (activeCurbs.left && scene) {
-    //   scene.remove(activeCurbs.left);
-    // }
-    // if (activeCurbs.right && scene) {
-    //   scene.remove(activeCurbs.right);
-    // }
-
-    // activeCurbs = { left: null, right: null };
 
     // Stop audio
     if (typeof AudioManager !== 'undefined') {

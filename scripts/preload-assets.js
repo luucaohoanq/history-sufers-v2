@@ -125,7 +125,7 @@ function persistStoredReady() {
   }
   try {
     window.localStorage.setItem(STORAGE_KEY, STORAGE_READY_VALUE);
-  } catch (error) {}
+  } catch (error) { }
 }
 
 function clearStoredReady() {
@@ -134,7 +134,7 @@ function clearStoredReady() {
   }
   try {
     window.localStorage.removeItem(STORAGE_KEY);
-  } catch (error) {}
+  } catch (error) { }
 }
 
 function initializeFromStorage() {
@@ -156,7 +156,7 @@ export function getAssetPreloadState() {
 
 export function subscribeToAssetPreload(listener) {
   if (typeof listener !== 'function') {
-    return () => {};
+    return () => { };
   }
   subscribers.add(listener);
   listener(snapshotState());
