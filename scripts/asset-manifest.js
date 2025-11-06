@@ -1,7 +1,6 @@
 export const ASSET_MANIFEST = [
   // GLB models
   { url: 'assets/objects/SimpleTree.glb', type: 'glb' },
-  { url: 'assets/objects/Tree.glb', type: 'glb' },
   { url: 'assets/objects/VillageHut.glb', type: 'glb' },
   { url: 'assets/objects/CapitalistExpress.glb', type: 'glb' },
   { url: 'assets/objects/WaterBuffalo.glb', type: 'glb' },
@@ -24,7 +23,6 @@ export const ASSET_MANIFEST = [
 
   // Textures / images
   { url: 'assets/xp.jpg', type: 'texture' },
-  { url: 'assets/road.jpg', type: 'texture' },
   { url: 'assets/bamboo.jpg', type: 'texture' },
   { url: 'textures/road/Road007_1K-JPG_Color.jpg', type: 'texture' },
   { url: 'textures/ground/Ground067_1K-JPG_Color.jpg', type: 'texture' },
