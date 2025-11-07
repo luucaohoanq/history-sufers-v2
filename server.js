@@ -64,7 +64,7 @@ app.get('/health', (req, res) => {
     status: 'ok',
     uptime: process.uptime(),
     timestamp: new Date().toISOString(),
-    rooms: gameServer.rooms.size,
+    rooms: gameServer?.rooms?.size || 0,
     maxPlayersPerRoom: MAX_PLAYERS_PER_ROOM
   });
 });
@@ -76,12 +76,13 @@ app.get('/api/info', (req, res) => {
     version: '3.0.0',
     engine: 'Colyseus',
     maxPlayersPerRoom: MAX_PLAYERS_PER_ROOM,
-    activeRooms: gameServer.rooms.size
+    activeRooms: gameServer?.rooms?.size || 0
   });
 });
 
 // Start server
 gameServer.listen(PORT);
+console.log(`🚀 History Surfers server is running on http://localhost:${PORT}`);
 
 // Graceful shutdown
 process.on('SIGTERM', async () => {

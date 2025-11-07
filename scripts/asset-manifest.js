@@ -40,6 +40,4 @@ export const ASSET_MANIFEST = [
   { url: 'sounds/subway-surfers-coin-collect.ogg', type: 'audio' }
 ];
 
-export const PRECACHE_URLS = Array.from(
-  new Set(ASSET_MANIFEST.map((entry) => entry.url))
-);
+export const PRECACHE_URLS = Array.from(new Set(ASSET_MANIFEST.map((entry) => entry.url)));
