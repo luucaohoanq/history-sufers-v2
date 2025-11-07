@@ -1,5 +1,5 @@
 /**
- * HISTORY SURFERS - COLYSEUS GAME STATE SCHEMA
+ * Con đường đổi mới - COLYSEUS GAME STATE SCHEMA
  *
  * Defines the synchronized state structure for multiplayer races
  */

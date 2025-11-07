@@ -1,5 +1,5 @@
 /**
- * HISTORY SURFERS - COLYSEUS MULTIPLAYER SERVER
+ * Con đường đổi mới - COLYSEUS MULTIPLAYER SERVER
  *
  * Node.js + Colyseus server for real-time multiplayer racing
  */
@@ -72,7 +72,7 @@ app.get('/health', (req, res) => {
 // API endpoint for server info
 app.get('/api/info', (req, res) => {
   res.json({
-    name: 'History Surfers Multiplayer Server',
+    name: 'Con đường đổi mới Multiplayer Server',
     version: '3.0.0',
     engine: 'Colyseus',
     maxPlayersPerRoom: MAX_PLAYERS_PER_ROOM,
@@ -82,7 +82,7 @@ app.get('/api/info', (req, res) => {
 
 // Start server
 gameServer.listen(PORT);
-console.log(`🚀 History Surfers server is running on http://localhost:${PORT}`);
+console.log(`🚀 Con đường đổi mới server is running on http://localhost:${PORT}`);
 
 // Graceful shutdown
 process.on('SIGTERM', async () => {

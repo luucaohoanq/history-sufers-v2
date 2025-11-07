@@ -1,4 +1,4 @@
-# Production Dockerfile for History Surfers
+# Production Dockerfile for Con đường đổi mới
 FROM node:20-alpine AS base
 
 # Install dumb-init for proper signal handling

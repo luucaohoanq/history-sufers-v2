@@ -1,5 +1,5 @@
 /**
- * HISTORY SURFERS - COLYSEUS GAME ROOM
+ * Con đường đổi mới - COLYSEUS GAME ROOM
  *
  * Main multiplayer room logic
  */
@@ -363,8 +363,9 @@ export class GameRoom extends Room {
 
   // 🎓 NEW: Get resources loaded count
   getResourcesLoadedCount() {
-    return Array.from(this.state.players.values()).filter((p) => !p.isSpectator && p.resourcesLoaded)
-      .length;
+    return Array.from(this.state.players.values()).filter(
+      (p) => !p.isSpectator && p.resourcesLoaded
+    ).length;
   }
 
   // 🎓 NEW: Check if all players ready (exclude spectators)

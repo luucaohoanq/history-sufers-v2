@@ -7,7 +7,7 @@ import { SinglePlayerStrategy } from '../scripts/network-strategy.js';
 import { updateSoundButtonUI } from '../scripts/utils.js';
 
 /**
- * HISTORY SURFERS - SINGLE PLAYER MODE
+ * Con đường đổi mới - SINGLE PLAYER MODE
  */
 
 window.addEventListener('load', async function () {
@@ -32,23 +32,25 @@ window.addEventListener('load', async function () {
   // Initialize audio manager
   AudioManager.init();
 
-  AudioManager.loadAll().then(function () {
-    // nếu người chơi đã tương tác ở lobby, gọi:
-    AudioManager.playIntro(); // intro sẽ loop perfectly
+  AudioManager.loadAll()
+    .then(function () {
+      // nếu người chơi đã tương tác ở lobby, gọi:
+      AudioManager.playIntro(); // intro sẽ loop perfectly
 
-    // setup UI toggle
-    var soundToggleBtn = document.getElementById('sound-toggle');
-    if (soundToggleBtn) {
-      updateSoundButtonUI(); // your function
-      soundToggleBtn.addEventListener('click', function () {
-        AudioManager.toggleMute();
-        updateSoundButtonUI();
-      });
-    }
-  }).catch(function (e) {
-    console.error('Audio preload failed', e);
-    // fallback: you may call AudioManager.playIntro() later after user gesture
-  });
+      // setup UI toggle
+      var soundToggleBtn = document.getElementById('sound-toggle');
+      if (soundToggleBtn) {
+        updateSoundButtonUI(); // your function
+        soundToggleBtn.addEventListener('click', function () {
+          AudioManager.toggleMute();
+          updateSoundButtonUI();
+        });
+      }
+    })
+    .catch(function (e) {
+      console.error('Audio preload failed', e);
+      // fallback: you may call AudioManager.playIntro() later after user gesture
+    });
 
   try {
     await waitForAssets();

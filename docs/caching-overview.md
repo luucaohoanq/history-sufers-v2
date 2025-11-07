@@ -1,6 +1,6 @@
 # Asset Caching & Offline Strategy
 
-This document explains how the History Surfers frontend warms heavy assets ahead of gameplay and how the new service worker keeps those assets available even if the backend goes offline.
+This document explains how the Con đường đổi mới frontend warms heavy assets ahead of gameplay and how the new service worker keeps those assets available even if the backend goes offline.
 
 ---
 

@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# History Surfers - Colyseus Setup & Test Script
+# Con đường đổi mới - Colyseus Setup & Test Script
 
 echo "╔════════════════════════════════════════════════════════════╗"
-echo "║  🎮  History Surfers - Colyseus Migration Setup           ║"
+echo "║  🎮  Con đường đổi mới - Colyseus Migration Setup           ║"
 echo "╚════════════════════════════════════════════════════════════╝"
 echo ""
 
