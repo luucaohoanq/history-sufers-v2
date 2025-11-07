@@ -1,0 +1,58 @@
+services:
+  # Node.js + Colyseus Game Server
+  game-server:
+    image: lcaohoanq/history-sufers:caddy
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: history-surfers-server
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - MAX_PLAYERS=50
+    expose:
+      - "3000"
+    volumes:
+      # Mount only necessary files (not node_modules)
+      - ./sounds:/app/sounds:ro
+      - ./assets:/app/assets:ro
+    networks:
+      - game-network
+
+  # Caddy Reverse Proxy with Caching
+  caddy:
+    image: caddy:2.7-alpine
+    container_name: history-surfers-caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"  # HTTP/3
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+      # Static assets for caching
+      - ./assets:/srv/assets:ro
+      - ./sounds:/srv/sounds:ro
+      - ./styles:/srv/styles:ro
+      - ./scripts:/srv/scripts:ro
+      - ./js:/srv/js:ro
+      - ./textures:/srv/textures:ro
+    networks:
+      - game-network
+    depends_on:
+      - game-server
+    environment:
+      - DOMAIN=${DOMAIN:-localhost}
+
+networks:
+  game-network:
+    driver: bridge
+
+volumes:
+  caddy_data:
+    driver: local
+  caddy_config:
+    driver: local

@@ -4,7 +4,8 @@ import { createGLBModel } from '../scripts/create-glb-model.js';
 
 const SIMPLE_TREE_URL = new URL('../assets/objects/SimpleTree.glb', import.meta.url).href;
 const VILLAGE_HUT_URL = new URL('../assets/objects/VillageHut.glb', import.meta.url).href;
-const CAPITALIST_EXPRESS_URL = new URL('../assets/objects/CapitalistExpress.glb', import.meta.url).href;
+const CAPITALIST_EXPRESS_URL = new URL('../assets/objects/CapitalistExpress.glb', import.meta.url)
+  .href;
 const WATER_BUFFALO_URL = new URL('../assets/objects/WaterBuffalo.glb', import.meta.url).href;
 const SKYSCRAPER_URL = new URL('../assets/objects/SkyScraper.glb', import.meta.url).href;
 const STORAGE_HOUSE_URL = new URL('../assets/objects/StorageHouse.glb', import.meta.url).href;
@@ -280,7 +281,7 @@ export function BallotBox(x, y, z, s) {
       this.loadedMesh = ballotBox;
     })
     .catch((error) => {
-      console.error("Failed to load ballot box model:", error);
+      console.error('Failed to load ballot box model:', error);
       this.loadedMesh = null;
     });
 
@@ -288,7 +289,6 @@ export function BallotBox(x, y, z, s) {
   this.mesh.scale.set(s, s, s);
   this.scale = s;
   this.type = 'ballotbox';
-
 
   this.update = function () {
     // Xoay tổng thể ballot box
@@ -499,8 +499,6 @@ export function ReformGears(x, y, z, s) {
   };
   this.buffValue = 50; // Điểm dương
 
-
-
   this.mesh.position.set(x, y, z);
   this.mesh.scale.set(s, s, s);
   this.scale = s;
@@ -508,10 +506,9 @@ export function ReformGears(x, y, z, s) {
   this.isCollected = false;
 
   // Load GLB model thay vì tạo manual
-  loadGearInstance()
-    .then((gear) => {
-      this.mesh.add(gear);
-    });
+  loadGearInstance().then((gear) => {
+    this.mesh.add(gear);
+  });
 
   this.update = function () {
     this.mesh.rotation.y += 0.004;
@@ -1011,7 +1008,7 @@ export function LowBarrier(x, y, z, s, scene) {
       this.loadedMesh = barrier;
     })
     .catch((error) => {
-      console.error("Failed to load barrier model:", error);
+      console.error('Failed to load barrier model:', error);
       this.loadedMesh = null;
     });
 
@@ -1019,9 +1016,9 @@ export function LowBarrier(x, y, z, s, scene) {
   this.mesh.scale.set(s, s, s);
 
   this.collides = function (minX, maxX, minY, maxY, minZ, maxZ) {
-    const width = 600 * this.scale;   // ±300
-    const height = 800 * this.scale;  // 0 -> 800
-    const depth = 100 * this.scale;   // ±50
+    const width = 600 * this.scale; // ±300
+    const height = 800 * this.scale; // 0 -> 800
+    const depth = 100 * this.scale; // ±50
 
     const obstMinX = self.mesh.position.x - width / 2;
     const obstMaxX = self.mesh.position.x + width / 2;
@@ -1039,7 +1036,7 @@ export function LowBarrier(x, y, z, s, scene) {
       obstMaxZ >= minZ
     );
   };
-  this.enableHitbox = false;  // tắt mặc định
+  this.enableHitbox = false; // tắt mặc định
 
   this.showHitbox = function () {
     if (!this.hitboxHelper) {
@@ -1138,10 +1135,10 @@ export function HighBarrier(x, y, z, s, scene) {
 
   // ===== COLLISION DETECTION =====
   this.collides = function (minX, maxX, minY, maxY, minZ, maxZ) {
-    const barWidth = 550 * this.scale;   // ±275
+    const barWidth = 550 * this.scale; // ±275
     const barHeight = 500 * this.scale;
-    const barDepth = 80 * this.scale;    // ±40
-    const barY = self.mesh.position.y + (BAR_Y * this.scale); // Vị trí Y tuyệt đối
+    const barDepth = 80 * this.scale; // ±40
+    const barY = self.mesh.position.y + BAR_Y * this.scale; // Vị trí Y tuyệt đối
 
     const obstMinX = self.mesh.position.x - barWidth / 2;
     const obstMaxX = self.mesh.position.x + barWidth / 2;
@@ -1160,7 +1157,7 @@ export function HighBarrier(x, y, z, s, scene) {
     );
   };
 
-  this.enableHitbox = false;  // tắt mặc định
+  this.enableHitbox = false; // tắt mặc định
 
   this.showHitbox = function () {
     if (!this.hitboxHelper) {
@@ -1211,7 +1208,7 @@ async function loadCapitalistExpressInstance() {
 
 export function CapitalistExpress(x, y, z, s, scene) {
   this.mesh = new THREE.Object3D();
-  this.type = "capitalistExpress";
+  this.type = 'capitalistExpress';
   this.speed = 200;
   this.scene = scene;
   this.scale = s;
@@ -1225,7 +1222,7 @@ export function CapitalistExpress(x, y, z, s, scene) {
       this.updateHitbox();
     })
     .catch((error) => {
-      console.error("Failed to load Capitalist Express model:", error);
+      console.error('Failed to load Capitalist Express model:', error);
       this.loadedMesh = null;
     });
 
@@ -1240,7 +1237,14 @@ export function CapitalistExpress(x, y, z, s, scene) {
     this.updateHitbox();
   };
 
-  this.collides = function (playerMinX, playerMaxX, playerMinY, playerMaxY, playerMinZ, playerMaxZ) {
+  this.collides = function (
+    playerMinX,
+    playerMaxX,
+    playerMinY,
+    playerMaxY,
+    playerMinZ,
+    playerMaxZ
+  ) {
     const customWidth = 300 * this.scale;
     const customHeight = 400 * this.scale;
     const customDepth = 200 * this.scale;
@@ -1320,7 +1324,7 @@ async function loadVillageHutInstance() {
 
 export function VillageHut(x, y, z, s) {
   this.mesh = new THREE.Object3D();
-  this.type = "villageHut";
+  this.type = 'villageHut';
   this.mesh.userData = { sideElement: true };
 
   loadVillageHutInstance()
@@ -1329,7 +1333,7 @@ export function VillageHut(x, y, z, s) {
       this.loadedMesh = hut;
     })
     .catch((error) => {
-      console.error("Failed to load village hut model:", error);
+      console.error('Failed to load village hut model:', error);
       this.loadedMesh = null;
     });
 
@@ -1338,7 +1342,6 @@ export function VillageHut(x, y, z, s) {
   this.mesh.scale.set(baseScale, baseScale, baseScale);
   this.mesh.rotation.y = Math.PI / 2;
 }
-
 
 async function loadBambooInstance() {
   return createGLBModel({
@@ -1359,7 +1362,7 @@ async function loadBambooInstance() {
 
 export function BambooTree(x, y, z, s) {
   this.mesh = new THREE.Group();
-  this.type = "bambooTree";
+  this.type = 'bambooTree';
   this.mesh.userData = { sideElement: true };
 
   loadBambooInstance()
@@ -1368,7 +1371,7 @@ export function BambooTree(x, y, z, s) {
       this.loadedMesh = bamboo;
     })
     .catch((error) => {
-      console.error("Failed to load bamboo model:", error);
+      console.error('Failed to load bamboo model:', error);
       this.loadedMesh = null;
     });
 
@@ -1395,7 +1398,7 @@ async function loadWaterBuffaloInstance() {
 
 export function WaterBuffalo(x, y, z, s) {
   this.mesh = new THREE.Object3D();
-  this.type = "waterBuffalo";
+  this.type = 'waterBuffalo';
   this.mesh.userData = { deadly: false };
 
   loadWaterBuffaloInstance()
@@ -1404,7 +1407,7 @@ export function WaterBuffalo(x, y, z, s) {
       this.loadedMesh = buffalo;
     })
     .catch((error) => {
-      console.error("Failed to load water buffalo model:", error);
+      console.error('Failed to load water buffalo model:', error);
       this.loadedMesh = null;
     });
 
@@ -1431,7 +1434,7 @@ async function loadRiceStorage() {
 
 export function RiceStorage(x, y, z, s) {
   this.mesh = new THREE.Group();
-  this.type = "riceStorage";
+  this.type = 'riceStorage';
 
   loadRiceStorage()
     .then((storage) => {
@@ -1439,7 +1442,7 @@ export function RiceStorage(x, y, z, s) {
       this.loadedMesh = storage;
     })
     .catch((error) => {
-      console.error("Failed to load rice storage model:", error);
+      console.error('Failed to load rice storage model:', error);
       this.loadedMesh = null;
     });
 
@@ -1467,7 +1470,7 @@ function loadCropFieldModel() {
 
 export function CropField(x, y, z, s) {
   this.mesh = new THREE.Group();
-  this.type = "cropField";
+  this.type = 'cropField';
 
   loadCropFieldModel()
     .then((field) => {
@@ -1475,7 +1478,7 @@ export function CropField(x, y, z, s) {
       this.loadedMesh = field;
     })
     .catch((error) => {
-      console.error("Failed to load crop field model:", error);
+      console.error('Failed to load crop field model:', error);
       this.loadedMesh = null;
     });
 
@@ -1502,14 +1505,14 @@ function loadOldFactoryModel() {
 
 export function OldFactory(x, y, z, s) {
   this.mesh = new THREE.Group();
-  this.type = "oldFactory";
+  this.type = 'oldFactory';
 
   loadOldFactoryModel()
     .then((factory) => {
       this.mesh.add(factory);
     })
     .catch((error) => {
-      console.error("Failed to load old factory model:", error);
+      console.error('Failed to load old factory model:', error);
     });
 
   this.mesh.position.set(x, y, z);
@@ -1518,7 +1521,6 @@ export function OldFactory(x, y, z, s) {
   // Quay ngang sang phải (trục Y, 90 độ)
   this.mesh.rotation.y = -Math.PI / 2;
 }
-
 
 function createHouseInstance() {
   return createGLBModel({
@@ -1539,14 +1541,14 @@ function createHouseInstance() {
 
 export function House(x, y, z, s) {
   this.mesh = new THREE.Group();
-  this.type = "house";
+  this.type = 'house';
 
   createHouseInstance()
     .then((house) => {
       this.mesh.add(house);
     })
     .catch((error) => {
-      console.error("Failed to load house model:", error);
+      console.error('Failed to load house model:', error);
     });
 
   this.mesh.position.set(x, y, z);
@@ -1573,7 +1575,7 @@ function loadFiveGTowerModel() {
 
 export function FiveGTower(x, y, z, s) {
   this.mesh = new THREE.Object3D(); // Initialize mesh first!
-  this.type = "fiveGTower";
+  this.type = 'fiveGTower';
   this.mesh.userData = { sideElement: true };
 
   loadFiveGTowerModel()
@@ -1582,14 +1584,13 @@ export function FiveGTower(x, y, z, s) {
       this.loadedMesh = tower;
     })
     .catch((error) => {
-      console.error("Failed to load 5G tower model:", error);
+      console.error('Failed to load 5G tower model:', error);
       this.loadedMesh = null;
     });
 
   this.mesh.position.set(x, y, z);
   this.mesh.scale.set(s, s, s);
 }
-
 
 function loadTrainModel() {
   return createGLBModel({
@@ -1610,7 +1611,7 @@ function loadTrainModel() {
 
 export function MetroStation(x, y, z, s) {
   this.mesh = new THREE.Group();
-  this.type = "metroStation";
+  this.type = 'metroStation';
 
   // Platform base - kích thước lớn và cố định
   const platformWidth = 800;
@@ -1639,17 +1640,11 @@ export function MetroStation(x, y, z, s) {
     transparent: true,
     opacity: 0.4
   });
-  const frontWall = new THREE.Mesh(
-    new THREE.BoxGeometry(platformWidth, 150, 10),
-    glassMat
-  );
+  const frontWall = new THREE.Mesh(new THREE.BoxGeometry(platformWidth, 150, 10), glassMat);
   frontWall.position.set(0, 100, platformDepth / 2);
   this.mesh.add(frontWall);
 
-  const backWall = new THREE.Mesh(
-    new THREE.BoxGeometry(platformWidth, 150, 10),
-    glassMat
-  );
+  const backWall = new THREE.Mesh(new THREE.BoxGeometry(platformWidth, 150, 10), glassMat);
   backWall.position.set(0, 100, -platformDepth / 2);
   this.mesh.add(backWall);
 
@@ -1672,11 +1667,11 @@ export function MetroStation(x, y, z, s) {
       this.trainModel = train;
     })
     .catch((error) => {
-      console.error("Failed to load train model for metro station:", error);
+      console.error('Failed to load train model for metro station:', error);
     });
 
   // Station sign
-  if (typeof createTextLabel === "function") {
+  if (typeof createTextLabel === 'function') {
     const signGroup = new THREE.Group();
     const label = createTextLabel('METRO', 200, 60, {
       color: '#FFFFFFFF',
@@ -1719,7 +1714,7 @@ function loadSkyscraperModel() {
 
 export function Skyscraper(x, y, z, s) {
   this.mesh = new THREE.Object3D(); // Initialize mesh first!
-  this.type = "skyscraper";
+  this.type = 'skyscraper';
   this.mesh.userData = { sideElement: true };
 
   loadSkyscraperModel()
@@ -1728,7 +1723,7 @@ export function Skyscraper(x, y, z, s) {
       this.loadedMesh = skyscraper;
     })
     .catch((error) => {
-      console.error("Failed to load skyscraper model:", error);
+      console.error('Failed to load skyscraper model:', error);
       this.loadedMesh = null;
     });
 
@@ -1756,7 +1751,7 @@ function loadCompanyModel() {
 
 export function Company(x, y, z, s) {
   this.mesh = new THREE.Group();
-  this.type = "company";
+  this.type = 'company';
 
   loadCompanyModel()
     .then((company) => {
@@ -1764,7 +1759,7 @@ export function Company(x, y, z, s) {
       this.loadedMesh = company;
     })
     .catch((error) => {
-      console.error("Failed to load company model:", error);
+      console.error('Failed to load company model:', error);
       this.loadedMesh = null;
     });
 
@@ -1772,4 +1767,3 @@ export function Company(x, y, z, s) {
   this.mesh.scale.set(s, s, s);
   this.mesh.rotation.y = -Math.PI / 2;
 }
-

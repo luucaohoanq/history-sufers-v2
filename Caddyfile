@@ -1,0 +1,181 @@
+# Caddyfile for History Surfers
+# High-performance reverse proxy with aggressive caching for static assets
+
+{
+    # Global options
+    admin off  # Disable admin API in production
+
+    # Disable automatic HTTPS redirect for localhost
+    auto_https disable_redirects
+}
+
+# Main site configuration
+{$DOMAIN:localhost} {
+    # Enable automatic HTTPS (Let's Encrypt)
+    # Remove this block if using localhost
+    # tls your-email@example.com
+
+    # Enable compression
+    encode gzip zstd
+
+    # Security headers
+    header {
+        # Enable HSTS
+        Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+
+        # Prevent clickjacking
+        X-Frame-Options "SAMEORIGIN"
+
+        # XSS protection
+        X-Content-Type-Options "nosniff"
+        X-XSS-Protection "1; mode=block"
+
+        # Referrer policy
+        Referrer-Policy "strict-origin-when-cross-origin"
+
+        # Remove server header
+        -Server
+    }
+
+    # ==========================================
+    # STATIC ASSETS WITH AGGRESSIVE CACHING
+    # ==========================================
+
+    # Static assets from /assets, /sounds, /textures directories
+    # These are proxied to the game server which serves them
+    @static {
+        path /assets/* /sounds/* /textures/*
+    }
+    handle @static {
+        reverse_proxy game-server:3000 {
+            header_up X-Real-IP {remote_host}
+            header_up X-Forwarded-For {remote_host}
+            header_up X-Forwarded-Proto {scheme}
+        }
+        header Cache-Control "public, max-age=31536000, immutable"
+        header X-Content-Type-Options "nosniff"
+    }
+
+    # JavaScript and CSS from specific directories (1 week cache with revalidation)
+    @scripts {
+        path /scripts/* /js/* /styles/*
+        path_regexp \.(js|mjs|css)$
+    }
+    handle @scripts {
+        reverse_proxy game-server:3000 {
+            header_up X-Real-IP {remote_host}
+            header_up X-Forwarded-For {remote_host}
+            header_up X-Forwarded-Proto {scheme}
+        }
+        header Cache-Control "public, max-age=604800, must-revalidate"
+    }
+
+    # Root level files (style.css, etc.)
+    @rootfiles {
+        path /*.css /*.js
+    }
+    handle @rootfiles {
+        reverse_proxy game-server:3000 {
+            header_up X-Real-IP {remote_host}
+            header_up X-Forwarded-For {remote_host}
+            header_up X-Forwarded-Proto {scheme}
+        }
+        header Cache-Control "public, max-age=604800, must-revalidate"
+    }
+
+    # ==========================================
+    # WEBSOCKET SUPPORT FOR COLYSEUS
+    # ==========================================
+
+    # WebSocket connections (no caching)
+    @websockets {
+        header Connection *Upgrade*
+        header Upgrade websocket
+    }
+    reverse_proxy @websockets game-server:3000 {
+        # WebSocket specific settings
+        header_up X-Real-IP {remote_host}
+        header_up X-Forwarded-For {remote_host}
+        header_up X-Forwarded-Proto {scheme}
+
+        # Increase timeouts for long-lived connections
+        transport http {
+            read_timeout 3600s
+            write_timeout 3600s
+            dial_timeout 30s
+        }
+    }
+
+    # ==========================================
+    # API ENDPOINTS (NO CACHING)
+    # ==========================================
+
+    # API routes - no caching
+    @api {
+        path /api/* /health /colyseus*
+    }
+    handle @api {
+        reverse_proxy game-server:3000 {
+            header_up X-Real-IP {remote_host}
+            header_up X-Forwarded-For {remote_host}
+            header_up X-Forwarded-Proto {scheme}
+
+            # Health check
+            health_uri /health
+            health_interval 10s
+            health_timeout 5s
+        }
+        header Cache-Control "no-cache, no-store, must-revalidate"
+    }
+
+    # ==========================================
+    # HTML PAGES (SHORT CACHE WITH REVALIDATION)
+    # ==========================================
+
+    # HTML files - short cache, must revalidate
+    @html {
+        path *.html /
+    }
+    handle @html {
+        reverse_proxy game-server:3000 {
+            header_up X-Real-IP {remote_host}
+            header_up X-Forwarded-For {remote_host}
+            header_up X-Forwarded-Proto {scheme}
+        }
+        header Cache-Control "public, max-age=300, must-revalidate"
+    }
+
+    # ==========================================
+    # DEFAULT FALLBACK
+    # ==========================================
+
+    # Everything else
+    reverse_proxy game-server:3000 {
+        header_up X-Real-IP {remote_host}
+        header_up X-Forwarded-For {remote_host}
+        header_up X-Forwarded-Proto {scheme}
+
+        # Load balancing (if you scale horizontally)
+        # lb_policy least_conn
+    }
+
+    # ==========================================
+    # ERROR PAGES
+    # ==========================================
+
+    handle_errors {
+        respond "{err.status_code} {err.status_text}"
+    }
+
+    # ==========================================
+    # LOGGING
+    # ==========================================
+
+    log {
+        output stdout
+        format json {
+            time_format "iso8601"
+        }
+        level INFO
+    }
+}
