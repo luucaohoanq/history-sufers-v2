@@ -1,5 +1,5 @@
 /**
- * HISTORY SURFERS - COLYSEUS CLIENT NETWORKING
+ * Con đường đổi mới - COLYSEUS CLIENT NETWORKING
  *
  * Client-side Colyseus networking for multiplayer functionality
  * Note: Colyseus is loaded via CDN and available as window.Colyseus

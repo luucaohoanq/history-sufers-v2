@@ -1,5 +1,5 @@
 /**
- * HISTORY SURFERS - MULTIPLAYER MODE
+ * Con đường đổi mới - MULTIPLAYER MODE
  */
 
 import { KEYCODE } from '../scripts/keycode.js';
@@ -32,7 +32,7 @@ async function reconnectToRoom() {
     // Đợi network manager khởi tạo
     if (!window.networkManager) {
       console.log('⏳ Waiting for network manager...');
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await new Promise((resolve) => setTimeout(resolve, 500));
     }
 
     networkManager = window.networkManager;
@@ -56,7 +56,6 @@ async function reconnectToRoom() {
 
     console.log('✅ Reconnected successfully');
     return true;
-
   } catch (error) {
     console.error('❌ Failed to reconnect:', error);
     sessionStorage.removeItem('multiplayerRoom');
@@ -91,7 +90,7 @@ async function initGame() {
   setupMultiplayerEventHandlers();
 
   // Step 3: Wait for network to be fully ready
-  await new Promise(resolve => {
+  await new Promise((resolve) => {
     const checkInterval = setInterval(() => {
       if (networkManager && networkManager.isInMultiplayer()) {
         clearInterval(checkInterval);
@@ -307,7 +306,11 @@ function startMultiplayerGame() {
         var playedTime = (now - activeIntro.startTime) % introDur;
         var timeLeft = introDur - playedTime;
 
-        console.log('⏳ Waiting', timeLeft.toFixed(2), 's for intro to finish before starting loop');
+        console.log(
+          '⏳ Waiting',
+          timeLeft.toFixed(2),
+          's for intro to finish before starting loop'
+        );
 
         setTimeout(function () {
           // Double check loop is not already playing before transition
@@ -323,7 +326,6 @@ function startMultiplayerGame() {
         AudioManager.play();
       }
     }
-
   } catch (error) {
     console.error('❌ Failed to start game:', error);
     showNotification('Failed to start game', 'error');
@@ -337,13 +339,25 @@ function startMultiplayerGame() {
 function displayRaceResults(rankings) {
   if (!rankings || rankings.length === 0) return;
 
-  var resultsHtml = '<h2 style="color: #4CAF50;">🏁 Race Results</h2><table style="width: 100%; margin-top: 20px;">';
+  var resultsHtml =
+    '<h2 style="color: #4CAF50;">🏁 Race Results</h2><table style="width: 100%; margin-top: 20px;">';
   resultsHtml += '<tr><th>Rank</th><th>Player</th><th>Score</th></tr>';
 
   rankings.forEach(function (rank) {
-    var rowClass = rank.playerId === networkManager.playerId ? 'style="background: rgba(76, 175, 80, 0.2);"' : '';
-    resultsHtml += '<tr ' + rowClass + '><td>' + rank.rank + '</td><td>' +
-      rank.name + '</td><td>' + rank.score + '</td></tr>';
+    var rowClass =
+      rank.playerId === networkManager.playerId
+        ? 'style="background: rgba(76, 175, 80, 0.2);"'
+        : '';
+    resultsHtml +=
+      '<tr ' +
+      rowClass +
+      '><td>' +
+      rank.rank +
+      '</td><td>' +
+      rank.name +
+      '</td><td>' +
+      rank.score +
+      '</td></tr>';
   });
 
   resultsHtml += '</table><p style="margin-top: 20px;">Press ESC to return to lobby</p>';
@@ -356,7 +370,8 @@ function displayRaceResults(rankings) {
 
   // Listen for ESC key to return to lobby
   document.addEventListener('keydown', function returnToLobby(e) {
-    if (e.keyCode === KEYCODE.ESC) { // ESC key
+    if (e.keyCode === KEYCODE.ESC) {
+      // ESC key
       document.removeEventListener('keydown', returnToLobby);
 
       if (window.currentWorld && typeof window.currentWorld.cleanup === 'function') {
@@ -441,17 +456,19 @@ function initAudio() {
     AudioManager.init();
 
     // Preload all audio files
-    AudioManager.loadAll().then(function () {
-      console.log('✅ Audio loaded successfully');
+    AudioManager.loadAll()
+      .then(function () {
+        console.log('✅ Audio loaded successfully');
 
-      // Play intro music ONLY once when entering multiplayer page
-      AudioManager.playIntro(); // intro will loop perfectly
+        // Play intro music ONLY once when entering multiplayer page
+        AudioManager.playIntro(); // intro will loop perfectly
 
-      audioInitialized = true;
-    }).catch(function (e) {
-      console.error('❌ Audio preload failed', e);
-      // Fallback: audio will be played after user gesture
-    });
+        audioInitialized = true;
+      })
+      .catch(function (e) {
+        console.error('❌ Audio preload failed', e);
+        // Fallback: audio will be played after user gesture
+      });
   }
 
   // Set up sound toggle button

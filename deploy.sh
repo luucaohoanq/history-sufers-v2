@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Deploy script for History Surfers
+# Deploy script for Con đường đổi mới
 # Usage: ./deploy.sh [environment]
 
 set -e  # Exit on error
@@ -8,7 +8,7 @@ set -e  # Exit on error
 ENVIRONMENT=${1:-production}
 COMPOSE_FILE="docker-compose.prod.yml"
 
-echo "🚀 Deploying History Surfers - ${ENVIRONMENT}"
+echo "🚀 Deploying Con đường đổi mới - ${ENVIRONMENT}"
 echo "================================================"
 
 # Check if Docker is running

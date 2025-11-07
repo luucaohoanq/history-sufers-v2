@@ -367,4 +367,4 @@ For developers updating from old system:
 
 **Last Updated**: 2024
 
-**Author**: History Surfers Team
+**Author**: Con đường đổi mới Team
